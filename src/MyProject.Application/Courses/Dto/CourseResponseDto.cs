@@ -8,7 +8,7 @@ namespace MyProject.Courses.Dto
 {
     [AutoMapFrom(typeof(Course))]
     [AutoMapTo(typeof(Course))]
-    public class CourseDto : EntityDto
+    public class CourseResponseDto : EntityDto
     {
         [Required]
         [StringLength(256)]

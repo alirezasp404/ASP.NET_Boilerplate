@@ -7,7 +7,7 @@ using MyProject.Courses;
 namespace MyProject.Courses.Dto
 {
     [AutoMapTo(typeof(Course))]
-    public class UpdateCourseDto : EntityDto
+    public class UpdateCourseRequestDto : EntityDto
     {
         [Required]
         [StringLength(256)]

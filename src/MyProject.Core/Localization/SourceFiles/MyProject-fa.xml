@@ -119,5 +119,7 @@
     <text name="UsersActivation">فعالسازی کاربران</text>
     <text name="NotFound">یافت نشد</text>
     <text name="ErrorOccurredWhileProcessingRequest">هنگام پردازش درخواست شما خطایی رخ داد</text>
+    <text name="StudentIsAlreadyEnrolledInThisCourse">قبلا در این دوره ثبت نام کرده اید</text>
+    <text name="UserWithThisUserNameAlreadyExists">این نام کاربری قبلا ثبت شده است</text>
   </texts>
 </localizationDictionary>

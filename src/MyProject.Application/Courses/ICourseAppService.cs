@@ -13,22 +13,22 @@ namespace MyProject.Courses
         /// <summary>
         /// Gets a paged list of courses based on input
         /// </summary>
-        Task<PagedResultDto<CourseDto>> GetAllAsync(GetCoursesInput input);
+        Task<PagedResultDto<CourseResponseDto>> GetAllAsync(GetCoursesRequest request);
         
         /// <summary>
         /// Gets a specific course by id
         /// </summary>
-        Task<CourseDto> GetAsync(EntityDto<int> input);
+        Task<CourseResponseDto> GetAsync(EntityDto<int> input);
         
         /// <summary>
         /// Creates a new course
         /// </summary>
-        Task<CourseDto> CreateAsync(CreateCourseDto input);
+        Task<CourseResponseDto> CreateAsync(CreateCourseRequestDto input);
         
         /// <summary>
         /// Updates an existing course
         /// </summary>
-        Task<CourseDto> UpdateAsync(UpdateCourseDto input);
+        Task<CourseResponseDto> UpdateAsync(UpdateCourseRequestDto input);
         
         /// <summary>
         /// Deletes a course

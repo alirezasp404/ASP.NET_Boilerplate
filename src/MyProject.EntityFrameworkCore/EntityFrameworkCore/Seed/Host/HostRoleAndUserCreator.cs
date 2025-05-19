@@ -90,7 +90,35 @@ public class HostRoleAndUserCreator
             // Assign Admin role to admin user
             _context.UserRoles.Add(new UserRole(null, adminUserForHost.Id, adminRoleForHost.Id));
             _context.SaveChanges();
+        }
+        
+        var studentRole = _context.Roles.IgnoreQueryFilters()
+            .FirstOrDefault(r => r.TenantId == null &&  r.Name == StaticRoleNames.Host.Student);
+        if (studentRole == null)
+        {
+            studentRole = _context.Roles.Add(new Role(null, StaticRoleNames.Host.Student, "Student")
+            {
+                IsStatic = true
+            }).Entity;
 
+            _context.SaveChanges();
+            var studentPermissions = new[]
+            {
+                PermissionNames.Pages_Courses_View,
+                PermissionNames.Pages_Enroll,
+                PermissionNames.Pages_My_Enrollments,
+            };
+                
+            foreach (var permissionName in studentPermissions)
+            {
+                _context.RolePermissions.Add(new RolePermissionSetting
+                {
+                    TenantId = null,
+                    RoleId = studentRole.Id,
+                    Name = permissionName
+                });
+            }
+                
             _context.SaveChanges();
         }
     }

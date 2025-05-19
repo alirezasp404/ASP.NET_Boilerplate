@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using MyProject.StudentCourses;
 
 namespace MyProject.Courses
 {
@@ -28,5 +30,8 @@ namespace MyProject.Courses
         public decimal? Price { get; set; }
         
         public bool IsActive { get; set; }
+        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
+
+        
     }
 }

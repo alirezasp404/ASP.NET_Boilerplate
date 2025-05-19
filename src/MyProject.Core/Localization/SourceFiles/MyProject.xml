@@ -120,5 +120,7 @@
     <text name="403PageHeader">Forbidden</text>
     <text name="403PageDescription">You don't have permission to access this resource. Please contact your administrator.</text>
     <text name="403PageButton">Go back to Dashboard</text>
+    <text name="ErrorOccurredWhileProcessingRequest">An error occured during processing your request</text>
+    <text name="NotFound">Not Found</text>
   </texts>
 </localizationDictionary>

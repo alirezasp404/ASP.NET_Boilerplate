@@ -28,30 +28,30 @@ namespace MyProject.Courses
         }
 
         [AbpAuthorize(PermissionNames.Pages_Courses_View)]
-        public async Task<PagedResultDto<CourseDto>> GetAllAsync(GetCoursesInput input)
+        public async Task<PagedResultDto<CourseResponseDto>> GetAllAsync(GetCoursesRequest request)
         {
-            Logger.Info("Getting all courses for input: " + input);
+            Logger.Info("Getting all courses for input: " + request);
 
             try
             {
                 var query = _courseRepository.GetAll()
-                    .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Title.Contains(input.Filter) || 
-                                                                      x.Description.Contains(input.Filter) || 
-                                                                      x.Code.Contains(input.Filter))
-                    .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive.Value);
+                    .WhereIf(!request.Filter.IsNullOrWhiteSpace(), x => x.Title.Contains(request.Filter) || 
+                                                                      x.Description.Contains(request.Filter) || 
+                                                                      x.Code.Contains(request.Filter))
+                    .WhereIf(request.IsActive.HasValue, x => x.IsActive == request.IsActive.Value);
 
                 var totalCount = await query.CountAsync();
                 
-                if (input is IPagedResultRequest pagedResultRequest)
+                if (request is IPagedResultRequest pagedResultRequest)
                 {
                     query = query.PageBy(pagedResultRequest);
                 }
                 
 
                 var courses = await query.ToListAsync();
-                var dtos = ObjectMapper.Map<List<CourseDto>>(courses);
+                var dtos = ObjectMapper.Map<List<CourseResponseDto>>(courses);
 
-                return new PagedResultDto<CourseDto>(totalCount, dtos);
+                return new PagedResultDto<CourseResponseDto>(totalCount, dtos);
             }
             catch (Exception ex)
             {
@@ -61,14 +61,14 @@ namespace MyProject.Courses
         }
 
         [AbpAuthorize(PermissionNames.Pages_Courses_View)]
-        public async Task<CourseDto> GetAsync(EntityDto<int> input)
+        public async Task<CourseResponseDto> GetAsync(EntityDto<int> input)
         {
             Logger.Info("Getting course with id: " + input.Id);
 
             try
             {
                 var course = await _courseRepository.GetAsync(input.Id);
-                return ObjectMapper.Map<CourseDto>(course);
+                return ObjectMapper.Map<CourseResponseDto>(course);
             }
             catch (EntityNotFoundException)
             {
@@ -83,7 +83,7 @@ namespace MyProject.Courses
         }
 
         [AbpAuthorize(PermissionNames.Pages_Courses_Create)]
-        public async Task<CourseDto> CreateAsync(CreateCourseDto input)
+        public async Task<CourseResponseDto> CreateAsync(CreateCourseRequestDto input)
         {
             Logger.Info("Creating a new course: " + input);
 
@@ -94,7 +94,7 @@ namespace MyProject.Courses
                 await CurrentUnitOfWork.SaveChangesAsync();
 
                 Logger.Info("Created new course with id: " + course.Id);
-                return ObjectMapper.Map<CourseDto>(course);
+                return ObjectMapper.Map<CourseResponseDto>(course);
             }
             catch (Exception ex)
             {
@@ -104,7 +104,7 @@ namespace MyProject.Courses
         }
 
         [AbpAuthorize(PermissionNames.Pages_Courses_Edit)]
-        public async Task<CourseDto> UpdateAsync(UpdateCourseDto input)
+        public async Task<CourseResponseDto> UpdateAsync(UpdateCourseRequestDto input)
         {
             Logger.Info("Updating course with id: " + input.Id);
 
@@ -121,7 +121,7 @@ namespace MyProject.Courses
                 await CurrentUnitOfWork.SaveChangesAsync();
 
                 Logger.Info("Successfully updated course with id: " + course.Id);
-                return ObjectMapper.Map<CourseDto>(course);
+                return ObjectMapper.Map<CourseResponseDto>(course);
             }
             catch (EntityNotFoundException)
             {
