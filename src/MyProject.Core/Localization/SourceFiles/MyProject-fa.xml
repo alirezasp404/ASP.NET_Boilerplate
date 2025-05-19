@@ -117,5 +117,7 @@
     <text name="ResetPasswordStepOneInfo">1. رمز عبور ادمین را وارد کنید</text>
     <text name="ResetPasswordStepTwoInfo">2. رمز تصادفی را کپی کنید تا آن را برای کاربر ارسال نمایید</text>
     <text name="UsersActivation">فعالسازی کاربران</text>
+    <text name="NotFound">یافت نشد</text>
+    <text name="ErrorOccurredWhileProcessingRequest">هنگام پردازش درخواست شما خطایی رخ داد</text>
   </texts>
 </localizationDictionary>
